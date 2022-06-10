@@ -52,4 +52,13 @@ public class Store extends Timestamped {
         this.comment = requestDto.getComment();
         this.user = user;
     }
+
+    public void update(StoreRequestDto requestDto){
+        this.storeName = requestDto.getStoreName();
+        this.address = requestDto.getAddress();
+        this.menu = requestDto.getMenu();
+        this.img_url = requestDto.getImg_url();
+        this.stars = requestDto.getStars();
+        this.comment = requestDto.getComment();
+    }
 }

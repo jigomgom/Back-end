@@ -6,10 +6,9 @@ import com.mini.babmeokeon.security.UserDetailsImpl;
 import com.mini.babmeokeon.service.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.persistence.Id;
 
 @RestController
 public class StoreController {
@@ -32,5 +31,17 @@ public class StoreController {
         return storeService.getStore();
     }
 
+    @PutMapping("/api/store/{id}")
+    public ResponseDto putStore(@PathVariable Long id,
+                                @RequestBody StoreRequestDto storeRequestDto,
+                                @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return storeService.putStore(id, storeRequestDto, userDetails);
+    }
+
+    @DeleteMapping("/api/store/{id}")
+    public ResponseDto deleteStore(@PathVariable Long id,
+                                   @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return storeService.deleteStore(id, userDetails);
+    }
 
 }

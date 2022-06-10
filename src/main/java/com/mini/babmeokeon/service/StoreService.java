@@ -6,6 +6,7 @@ import com.mini.babmeokeon.dto.StoreResponseDto;
 import com.mini.babmeokeon.model.Store;
 import com.mini.babmeokeon.repository.StoreRepository;
 import com.mini.babmeokeon.security.UserDetailsImpl;
+import com.mini.babmeokeon.validator.StoreVaildator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,28 +26,9 @@ public class StoreService {
 
     @Transactional
     public ResponseDto register(StoreRequestDto storeRequestDto, UserDetailsImpl userDetails) {
-        String message;
+        String message = StoreVaildator.validateStoreInput(storeRequestDto);
         boolean response = false;
-        if(storeRequestDto.getStoreName() == null){
-            message = "맛집 이름을 입력해주세요.";
-        }
-        else if(storeRequestDto.getAddress()== null){
-            message = "맛집 주소를 입력해주세요.";
-        }
-        else if(storeRequestDto.getComment()== null){
-            message = "한줄평을 입력해주세요.";
-        }
-        else if(storeRequestDto.getMenu()== null){
-            message = "맛집 대표메뉴를 입력해주세요.";
-        }
-        else if(storeRequestDto.getStars()== 0){
-            message = "맛집 별점을 선택해주세요.";
-        }
-        else if(storeRequestDto.getImg_url()== null){
-            message = "맛집 이미지를 등록해주세요.";
-        }
-        else{
-            message = "성공";
+        if(message.equals("성공")){
             response = true;
             Store store = new Store(storeRequestDto, userDetails.getUser());
             storeRepository.save(store);
@@ -64,5 +46,34 @@ public class StoreService {
         return new ResponseDto(true,"성공", storeList);
     }
 
+    @Transactional
+    public ResponseDto putStore(Long id, StoreRequestDto storeRequestDto, UserDetailsImpl userDetails) {
+        String message = StoreVaildator.validateStoreInput(storeRequestDto);
+        boolean response = false;
+        Store store = storeRepository.findById(id).orElseThrow(()-> new NullPointerException("해당 맛집이 없습니다."));
+        if(store.getUser() != userDetails.getUser()){
+            message = "본인의 게시글이 아닙니다.";
+        }
+        else if(message.equals("성공")){
+            response = true;
+            store.update(storeRequestDto);
+        }
+        return new ResponseDto(response, message);
+    }
 
+
+    public ResponseDto deleteStore(Long id, UserDetailsImpl userDetails) {
+        String message;
+        boolean response = false;
+        Store store = storeRepository.findById(id).orElseThrow(()-> new NullPointerException("해당 맛집이 없습니다."));
+        if(store.getUser() != userDetails.getUser()){
+            message = "본인의 게시글이 아닙니다.";
+        }
+        else {
+            response = true;
+            message = "성공";
+            storeRepository.deleteById(id);
+        }
+        return new ResponseDto(response, message);
+    }
 }
