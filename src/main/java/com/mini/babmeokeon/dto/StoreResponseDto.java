@@ -18,6 +18,7 @@ public class StoreResponseDto {
     private String nickname;
     private String menu;
     private String img_url;
+    private String icon_url;
     private int stars;
     private String comment;
     private int likeCount;
@@ -28,6 +29,7 @@ public class StoreResponseDto {
         this.storeName = store.getStoreName();
         this.address = store.getAddress();
         this.nickname = store.getUser().getNickname();
+        this.icon_url = store.getUser().getIcon_url();
         this.menu = store.getMenu();
         this.img_url = store.getImg_url();
         this.stars = store.getStars();
