@@ -36,6 +36,9 @@ public class Store extends Timestamped {
     @Column(nullable = false)
     private String comment;
 
+    @Column(nullable = false)
+    private int likeCount=0;
+
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;

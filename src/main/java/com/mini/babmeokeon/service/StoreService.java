@@ -2,6 +2,7 @@ package com.mini.babmeokeon.service;
 
 import com.mini.babmeokeon.dto.ResponseDto;
 import com.mini.babmeokeon.dto.StoreRequestDto;
+import com.mini.babmeokeon.dto.StoreResponseDto;
 import com.mini.babmeokeon.model.Store;
 import com.mini.babmeokeon.repository.StoreRepository;
 import com.mini.babmeokeon.security.UserDetailsImpl;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class StoreService {
@@ -52,4 +55,14 @@ public class StoreService {
 
 
     }
+
+    public ResponseDto getStore() {
+        List<StoreResponseDto> storeList = new ArrayList<>();
+        for(Store store:storeRepository.findAllByOrderByTimestampDesc()){
+            storeList.add(new StoreResponseDto(store));
+        }
+        return new ResponseDto(true,"성공", storeList);
+    }
+
+
 }
