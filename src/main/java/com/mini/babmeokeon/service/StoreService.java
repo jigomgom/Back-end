@@ -51,7 +51,7 @@ public class StoreService {
         String message = StoreVaildator.validateStoreInput(storeRequestDto);
         boolean response = false;
         Store store = storeRepository.findById(id).orElseThrow(()-> new NullPointerException("해당 맛집이 없습니다."));
-        if(store.getUser() != userDetails.getUser()){
+        if(!store.getUser().getId().equals(userDetails.getUser().getId())){
             message = "본인의 게시글이 아닙니다.";
         }
         else if(message.equals("성공")){
@@ -66,7 +66,7 @@ public class StoreService {
         String message;
         boolean response = false;
         Store store = storeRepository.findById(id).orElseThrow(()-> new NullPointerException("해당 맛집이 없습니다."));
-        if(store.getUser() != userDetails.getUser()){
+        if(!store.getUser().getId().equals(userDetails.getUser().getId())){
             message = "본인의 게시글이 아닙니다.";
         }
         else {
