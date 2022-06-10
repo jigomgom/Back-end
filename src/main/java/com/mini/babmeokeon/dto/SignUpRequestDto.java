@@ -10,6 +10,8 @@ public class SignUpRequestDto {
 
     private String nickname;
 
+    private String icon_url;
+
     private String password;
 
     private String passwordCheck;

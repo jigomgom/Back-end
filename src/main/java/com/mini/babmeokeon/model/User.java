@@ -27,6 +27,9 @@ public class User {
     @Column(nullable = false, unique = true)
     private String nickname;
 
+    @Column
+    private String icon_url;
+
     @Column(nullable = false)
     @JsonIgnore
     private String password;
@@ -35,5 +38,6 @@ public class User {
         this.username = signUpRequestDto.getUsername();
         this.nickname = signUpRequestDto.getNickname();
         this.password = signUpRequestDto.getPassword();
+        this.icon_url = signUpRequestDto.getIcon_url();
     }
 }
