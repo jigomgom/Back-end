@@ -83,6 +83,7 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 // 로그아웃 요청 처리 URL
                 .logoutUrl("/api/logout")
+                .logoutSuccessUrl("/")
                 .permitAll();
     }
 
@@ -91,6 +92,7 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
         FormLoginFilter formLoginFilter = new FormLoginFilter(authenticationManager());
         formLoginFilter.setFilterProcessesUrl("/api/login");
         formLoginFilter.setAuthenticationSuccessHandler(formLoginSuccessHandler());
+        formLoginFilter.setAuthenticationFailureHandler(formLoginFailureHandler());
         formLoginFilter.afterPropertiesSet();
         return formLoginFilter;
     }
@@ -98,6 +100,10 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public FormLoginSuccessHandler formLoginSuccessHandler() {
         return new FormLoginSuccessHandler();
+    }
+    @Bean
+    public FormLoginFailureHandler formLoginFailureHandler(){
+        return new FormLoginFailureHandler();
     }
 
     @Bean
@@ -125,6 +131,7 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
 
         skipPathList.add("GET,/");
         skipPathList.add("GET,/basic.js");
+
 
 
 
