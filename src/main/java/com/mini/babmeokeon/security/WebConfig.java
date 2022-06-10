@@ -83,7 +83,6 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 // 로그아웃 요청 처리 URL
                 .logoutUrl("/api/logout")
-                .logoutSuccessUrl("/api/stores")
                 .permitAll();
     }
 

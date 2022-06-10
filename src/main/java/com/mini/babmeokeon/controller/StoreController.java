@@ -2,6 +2,7 @@ package com.mini.babmeokeon.controller;
 
 import com.mini.babmeokeon.dto.ResponseDto;
 import com.mini.babmeokeon.dto.StoreRequestDto;
+import com.mini.babmeokeon.dto.StoreResponseDto;
 import com.mini.babmeokeon.security.UserDetailsImpl;
 import com.mini.babmeokeon.service.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,25 +22,25 @@ public class StoreController {
     }
 
     @PostMapping("/api/store")
-    public ResponseDto register(@RequestBody StoreRequestDto storeRequestDto,
+    public ResponseDto<Object> register(@RequestBody StoreRequestDto storeRequestDto,
                                 @AuthenticationPrincipal UserDetailsImpl userDetails) {
         return storeService.register(storeRequestDto, userDetails);
     }
 
     @GetMapping("/api/stores")
-    public ResponseDto getStore(){
+    public ResponseDto<StoreResponseDto> getStore(){
         return storeService.getStore();
     }
 
     @PutMapping("/api/store/{id}")
-    public ResponseDto putStore(@PathVariable Long id,
+    public ResponseDto<Object> putStore(@PathVariable Long id,
                                 @RequestBody StoreRequestDto storeRequestDto,
                                 @AuthenticationPrincipal UserDetailsImpl userDetails) {
         return storeService.putStore(id, storeRequestDto, userDetails);
     }
 
     @DeleteMapping("/api/store/{id}")
-    public ResponseDto deleteStore(@PathVariable Long id,
+    public ResponseDto<Object> deleteStore(@PathVariable Long id,
                                    @AuthenticationPrincipal UserDetailsImpl userDetails) {
         return storeService.deleteStore(id, userDetails);
     }

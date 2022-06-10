@@ -1,16 +1,22 @@
 package com.mini.babmeokeon.security.filter;
 
+import com.fasterxml.jackson.core.json.JsonWriteFeature;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mini.babmeokeon.dto.ResponseDto;
+import org.omg.CORBA.portable.ResponseHandler;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 public class FormLoginFilter extends UsernamePasswordAuthenticationFilter {
     final private ObjectMapper objectMapper;
@@ -36,4 +42,5 @@ public class FormLoginFilter extends UsernamePasswordAuthenticationFilter {
         setDetails(request, authRequest);
         return this.getAuthenticationManager().authenticate(authRequest);
     }
+
 }

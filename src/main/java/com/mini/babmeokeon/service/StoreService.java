@@ -25,7 +25,7 @@ public class StoreService {
     }
 
     @Transactional
-    public ResponseDto register(StoreRequestDto storeRequestDto, UserDetailsImpl userDetails) {
+    public ResponseDto<Object> register(StoreRequestDto storeRequestDto, UserDetailsImpl userDetails) {
         String message = StoreVaildator.validateStoreInput(storeRequestDto);
         boolean response = false;
         if(message.equals("성공")){
@@ -33,21 +33,21 @@ public class StoreService {
             Store store = new Store(storeRequestDto, userDetails.getUser());
             storeRepository.save(store);
         }
-        return new ResponseDto(response, message);
+        return new ResponseDto<>(response, message);
 
 
     }
 
-    public ResponseDto getStore() {
+    public ResponseDto<StoreResponseDto> getStore() {
         List<StoreResponseDto> storeList = new ArrayList<>();
         for(Store store:storeRepository.findAllByOrderByTimestampDesc()){
             storeList.add(new StoreResponseDto(store));
         }
-        return new ResponseDto(true,"성공", storeList);
+        return new ResponseDto<>(true,"성공", storeList);
     }
 
     @Transactional
-    public ResponseDto putStore(Long id, StoreRequestDto storeRequestDto, UserDetailsImpl userDetails) {
+    public ResponseDto<Object> putStore(Long id, StoreRequestDto storeRequestDto, UserDetailsImpl userDetails) {
         String message = StoreVaildator.validateStoreInput(storeRequestDto);
         boolean response = false;
         Store store = storeRepository.findById(id).orElseThrow(()-> new NullPointerException("해당 맛집이 없습니다."));
@@ -58,11 +58,11 @@ public class StoreService {
             response = true;
             store.update(storeRequestDto);
         }
-        return new ResponseDto(response, message);
+        return new ResponseDto<>(response, message);
     }
 
 
-    public ResponseDto deleteStore(Long id, UserDetailsImpl userDetails) {
+    public ResponseDto<Object> deleteStore(Long id, UserDetailsImpl userDetails) {
         String message;
         boolean response = false;
         Store store = storeRepository.findById(id).orElseThrow(()-> new NullPointerException("해당 맛집이 없습니다."));
@@ -74,6 +74,6 @@ public class StoreService {
             message = "성공";
             storeRepository.deleteById(id);
         }
-        return new ResponseDto(response, message);
+        return new ResponseDto<>(response, message);
     }
 }
