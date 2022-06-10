@@ -3,6 +3,7 @@ package com.mini.babmeokeon.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mini.babmeokeon.dto.SignUpRequestDto;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import javax.persistence.*;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
 public class User {
 
 
