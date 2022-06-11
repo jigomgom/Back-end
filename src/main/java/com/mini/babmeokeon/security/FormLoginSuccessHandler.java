@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class FormLoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
     public static final String AUTH_HEADER = "Authorization";
-    public static final String TOKEN_TYPE = "BEARER ";
+    public static final String TOKEN_TYPE = "BEARER";
 
     @Override
     public void onAuthenticationSuccess(final HttpServletRequest request, final HttpServletResponse response,
