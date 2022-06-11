@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.Id;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 public class StoreController {
 
     private final StoreService storeService;
