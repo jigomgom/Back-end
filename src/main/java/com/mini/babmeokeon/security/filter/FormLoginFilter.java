@@ -23,6 +23,7 @@ public class FormLoginFilter extends UsernamePasswordAuthenticationFilter {
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+        System.out.println("FormLoginFilter");
         UsernamePasswordAuthenticationToken authRequest;
         try {
             JsonNode requestBody = objectMapper.readTree(request.getInputStream());
@@ -30,7 +31,7 @@ public class FormLoginFilter extends UsernamePasswordAuthenticationFilter {
             String password = requestBody.get("password").asText();
             authRequest = new UsernamePasswordAuthenticationToken(username, password);
         } catch (Exception e) {
-            throw new RuntimeException("username, password 입력이 필요합니다. (JSON)");
+            throw new RuntimeException("username, password 입력이 필요합니다. (JSON)"+ e.getMessage());
         }
 
         setDetails(request, authRequest);

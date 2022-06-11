@@ -7,6 +7,7 @@ import com.mini.babmeokeon.security.provider.FormLoginAuthProvider;
 import com.mini.babmeokeon.security.provider.JWTAuthProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -84,6 +85,7 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class);
 
         http.authorizeRequests()
+                // .mvcMatchers(HttpMethod.OPTIONS,"/**").permitAll()
                 .anyRequest()
                 .permitAll()
                 .and()
@@ -91,7 +93,8 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 // 로그아웃 요청 처리 URL
                 .logoutUrl("/api/logout")
-                .logoutSuccessUrl("/")
+                // .logoutSuccessUrl("/")
+                .logoutSuccessHandler(logOutSuccessHandler())
                 .permitAll();
     }
 
@@ -104,7 +107,10 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
         formLoginFilter.afterPropertiesSet();
         return formLoginFilter;
     }
-
+    @Bean
+    public LogOutSuccessHandler logOutSuccessHandler() {
+        return new LogOutSuccessHandler();
+    }
     @Bean
     public FormLoginSuccessHandler formLoginSuccessHandler() {
         return new FormLoginSuccessHandler();
@@ -131,8 +137,6 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
         skipPathList.add("GET,/api/checkNickname/**"); // 닉네임 중복확인허용
         skipPathList.add("GET,/api/stores"); // 메인페이지 api 허용
 
-        skipPathList.add("GET,/");
-
         FilterSkipMatcher matcher = new FilterSkipMatcher(
                 skipPathList,
                 "/**"
@@ -147,16 +151,16 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
         return filter;
     }
 
-    @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
-
+    // @Bean
+    // @Override
+    // public AuthenticationManager authenticationManagerBean() throws Exception {
+    //     return super.authenticationManagerBean();
+    // }
+    // CORS 설정
     @Bean public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.addAllowedOrigin("http://localhost:3000");
-        configuration.addAllowedOrigin("http://ricefriend-bucket.s3-website.ap-northeast-2.amazonaws.com/");
+        // configuration.addAllowedOrigin("http://ricefriend-bucket.s3-website.ap-northeast-2.amazonaws.com/");
         configuration.addAllowedMethod("*");
         configuration.addAllowedHeader("*");
         configuration.addExposedHeader("*");
@@ -165,5 +169,6 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
         configuration.setMaxAge(3600L);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
-        return source; }
+        return source;
+    }
 }

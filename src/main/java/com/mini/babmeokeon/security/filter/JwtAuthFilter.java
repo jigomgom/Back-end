@@ -1,7 +1,11 @@
 package com.mini.babmeokeon.security.filter;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mini.babmeokeon.dto.ResponseDto;
 import com.mini.babmeokeon.security.jwt.HeaderTokenExtractor;
 import com.mini.babmeokeon.security.jwt.JwtPreProcessingToken;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContext;
@@ -37,11 +41,18 @@ public class JwtAuthFilter extends AbstractAuthenticationProcessingFilter {
             HttpServletRequest request,
             HttpServletResponse response
     ) throws AuthenticationException, IOException {
+        System.out.println("JwtAuthFilter");
 
         // JWT 값을 담아주는 변수 TokenPayload
         String tokenPayload = request.getHeader("Authorization");
         if (tokenPayload == null) {
-            response.sendRedirect("/api/login");
+            // response.sendRedirect("/api/login");
+            response.setCharacterEncoding("UTF-8");
+            response.setContentType("application/json");
+            ObjectMapper mapper = new ObjectMapper();
+            ResponseDto<Object> responseDto = new ResponseDto<>(false, "로그인이 필요합니다.");
+            String result =mapper.writeValueAsString(responseDto);
+            response.getWriter().write(result);
             return null;
         }
 
