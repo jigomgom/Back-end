@@ -65,6 +65,7 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
+
         /*
          * 1.
          * UsernamePasswordAuthenticationFilter 이전에 FormLoginFilter, JwtFilter 를 등록합니다.
@@ -114,11 +115,6 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
     private JwtAuthFilter jwtFilter() throws Exception {
         List<String> skipPathList = new ArrayList<>();
 
-        // Static 정보 접근 허용
-        skipPathList.add("GET,/images/**");
-        skipPathList.add("GET,/css/**");
-
-
         // h2-console 허용
         skipPathList.add("GET,/h2-console/**");
         skipPathList.add("POST,/h2-console/**");
@@ -128,14 +124,7 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
         skipPathList.add("GET,/api/checkNickname/**"); // 닉네임 중복확인허용
         skipPathList.add("GET,/api/stores"); // 메인페이지 api 허용
 
-
         skipPathList.add("GET,/");
-        skipPathList.add("GET,/basic.js");
-
-
-
-
-        skipPathList.add("GET,/favicon.ico");
 
         FilterSkipMatcher matcher = new FilterSkipMatcher(
                 skipPathList,
