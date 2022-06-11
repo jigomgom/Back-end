@@ -30,6 +30,12 @@ dependencies {
     testImplementation 'org.springframework.security:spring-security-test'
     //jwt 토큰생성
     implementation 'com.auth0:java-jwt:3.14.0'
+    // swagger
+    implementation("io.springfox:springfox-boot-starter:3.0.0")
+    implementation("io.springfox:springfox-swagger-ui:3.0.0")
+//    // Thymeleaf (뷰 템플릿 엔진)
+//    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
 }
 
 tasks.named('test') {
