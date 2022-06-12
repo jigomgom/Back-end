@@ -59,6 +59,9 @@ public class UserService {
     public ResponseDto<Object> checkId(String username) {
         User user = userRepository.findByUsername(username);
         if (user == null) {
+            if (!username.matches("^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$")){
+                return new ResponseDto<>(false, "이메일 형식이 아닙니다.");
+            }
             return new ResponseDto<>(true);
         }
         return new ResponseDto<>(false, "아이디 중복");
@@ -67,6 +70,12 @@ public class UserService {
     public ResponseDto<Object> checkNickname(String nickname) {
         User user = userRepository.findByNickname(nickname);
         if (user == null) {
+            if (nickname.length() < 4 || nickname.length() > 20 ) {
+                return new ResponseDto<>(false,"닉네임은 최소 4글자 이상, 20글자 이하로 작성해 주세요.");
+            }
+            if (!nickname.matches("^[0-9a-zA-Z]{4,20}$")) {
+                return new ResponseDto<>(false,"닉네임은 영문 + 숫자로 작성해 주세요.");
+            }
             return new ResponseDto<>(true);
         }
         return new ResponseDto<>(false, "닉네임 중복");
