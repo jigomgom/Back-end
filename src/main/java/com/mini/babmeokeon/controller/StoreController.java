@@ -29,8 +29,11 @@ public class StoreController {
     }
 
     @GetMapping("/api/stores")
-    public ResponseDto<StoreResponseDto> getStore(){
-        return storeService.getStore();
+    public ResponseDto<StoreResponseDto> getStore( @RequestParam("page") int page,
+                                                   @RequestParam("size") int size,
+                                                   @RequestParam("sortBy") String sortBy,
+                                                   @RequestParam("isAsc") boolean isAsc){
+        return storeService.getStore(page,size,sortBy,isAsc);
     }
 
     @PutMapping("/api/store/{id}")
