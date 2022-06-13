@@ -39,6 +39,8 @@ public class StoreService {
     }
 
     public ResponseDto<StoreResponseDto> getStore() {
+
+
         List<StoreResponseDto> storeList = new ArrayList<>();
         for(Store store:storeRepository.findAllByOrderByTimestampDesc()){
             storeList.add(new StoreResponseDto(store));
