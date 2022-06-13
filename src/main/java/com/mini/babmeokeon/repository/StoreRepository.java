@@ -1,6 +1,5 @@
 package com.mini.babmeokeon.repository;
 
-import com.mini.babmeokeon.dto.StoreResponseDto;
 import com.mini.babmeokeon.model.Store;
 import org.springframework.data.jpa.repository.JpaRepository;
 

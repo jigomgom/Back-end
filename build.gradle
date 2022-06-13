@@ -35,6 +35,13 @@ dependencies {
     implementation("io.springfox:springfox-swagger-ui:3.0.0")
 //    // Thymeleaf (뷰 템플릿 엔진)
 //    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation('org.slf4j:jcl-over-slf4j')
+    implementation('ch.qos.logback:logback-classic')
+
+    //redis
+    compileOnly 'org.springframework.boot:spring-boot-starter-data-redis:2.7.0'
+
+
 
 }
 

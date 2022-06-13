@@ -4,8 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mini.babmeokeon.dto.ResponseDto;
 import com.mini.babmeokeon.security.jwt.HeaderTokenExtractor;
 import com.mini.babmeokeon.security.jwt.JwtPreProcessingToken;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContext;

@@ -40,6 +40,7 @@ public class UserService {
             return new ResponseDto<>(false,"닉네임은 영문 + 숫자로 작성해 주세요.");
         }
         if (!this.checkId(username).isResponse()) {
+
             return new ResponseDto<>(false, "아이디 중복");
         }
         if (!this.checkNickname(nickname).isResponse()) {

@@ -5,6 +5,7 @@ import com.mini.babmeokeon.dto.StoreRequestDto;
 import com.mini.babmeokeon.dto.StoreResponseDto;
 import com.mini.babmeokeon.security.UserDetailsImpl;
 import com.mini.babmeokeon.service.StoreService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.Id;
 
 @RestController
+@Slf4j
 @CrossOrigin(origins = "http://localhost:3000")
 public class StoreController {
 
@@ -32,6 +34,7 @@ public class StoreController {
     public ResponseDto<StoreResponseDto> getStore(){
         return storeService.getStore();
     }
+
 
     @PutMapping("/api/store/{id}")
     public ResponseDto<Object> putStore(@PathVariable Long id,

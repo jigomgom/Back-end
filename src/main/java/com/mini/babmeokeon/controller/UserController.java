@@ -4,19 +4,21 @@ import com.mini.babmeokeon.dto.ResponseDto;
 import com.mini.babmeokeon.dto.SignUpRequestDto;
 import com.mini.babmeokeon.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
+@Slf4j
 @CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
     private final UserService userService;
 
     @PostMapping("/api/signup")
     public ResponseDto<Object> signUp(@RequestBody SignUpRequestDto signUpRequestDto) {
-        System.out.println("signup");
+        log.info("signUp name =" + signUpRequestDto.getNickname());
         return userService.signUp(signUpRequestDto);
+
     }
 
     @GetMapping("/api/checkId/{username}")

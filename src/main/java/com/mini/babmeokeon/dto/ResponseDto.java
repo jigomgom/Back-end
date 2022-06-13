@@ -14,6 +14,7 @@ public class ResponseDto<T>{
     private String message;
     private List<T> storeList;
 
+
     public ResponseDto(boolean response) {
         this.response = response;
     }
