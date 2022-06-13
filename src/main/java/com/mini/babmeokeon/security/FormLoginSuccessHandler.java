@@ -12,7 +12,6 @@ import java.io.IOException;
 
 public class FormLoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
     public static final String AUTH_HEADER = "Authorization";
-    public static final String AUTH_HEADER_refreshToken = "Authorization_refreshToken";
     public static final String TOKEN_TYPE = "BEARER";
 
     @Override
@@ -20,10 +19,8 @@ public class FormLoginSuccessHandler extends SavedRequestAwareAuthenticationSucc
                                         final Authentication authentication) throws IOException {
         final UserDetailsImpl userDetails = ((UserDetailsImpl) authentication.getPrincipal());
         // Token 생성
-        final String AccessToken = JwtTokenUtils.generateAccessToken(userDetails);
-        final String RefreshToken = JwtTokenUtils.generateRefreshToken(userDetails);
-        response.addHeader(AUTH_HEADER, TOKEN_TYPE + " " + AccessToken);
-        response.addHeader(AUTH_HEADER_refreshToken, TOKEN_TYPE + " " + RefreshToken);
+        final String Token = JwtTokenUtils.generateJwtToken(userDetails);
+        response.addHeader(AUTH_HEADER, TOKEN_TYPE + " " + Token);
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
         ObjectMapper mapper = new ObjectMapper();
