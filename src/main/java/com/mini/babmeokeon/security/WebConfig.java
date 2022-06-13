@@ -133,7 +133,10 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
         skipPathList.add("POST,/api/signup"); // 회원가입허용
         skipPathList.add("GET,/api/checkId/**"); // 아이디 중복확인 허용
         skipPathList.add("GET,/api/checkNickname/**"); // 닉네임 중복확인허용
+
+
         skipPathList.add("GET,/api/stores"); // 메인페이지 api 허용
+        skipPathList.add("GET,/api/comment/**");//댓글 불러오기 허용
 
         //Swagger
         skipPathList.add("GET,/v2/api-docs");

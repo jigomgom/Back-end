@@ -1,6 +1,7 @@
 package com.mini.babmeokeon.service;
 
 import com.mini.babmeokeon.dto.CommentRequestDto;
+import com.mini.babmeokeon.dto.CommentResponseDto;
 import com.mini.babmeokeon.dto.ResponseDto;
 import com.mini.babmeokeon.model.Comment;
 import com.mini.babmeokeon.model.Store;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -46,14 +48,22 @@ public class CommentService {
 
     }
 
-    public ResponseDto<Comment> readComment(Long storeId) {
-        List<Comment> commentList = commentRepository.findAllById(storeId);
-        boolean response = true;
-        String message = "댓글 조회 완료";
-
-        return new ResponseDto<>(response, message, commentList);
-
+    public  ResponseDto<CommentResponseDto>  readComment(Long storeId) {
+        List<CommentResponseDto> commentList = new ArrayList<>();
+        List<Comment> comments = commentRepository.findAllByStoreId(storeId);
+        for (Comment comment : comments) {
+            commentList.add(new CommentResponseDto(comment));
+        }
+        return new ResponseDto<>(true, "성공", commentList);
     }
+
+//
+//        List<StoreResponseDto> storeList = new ArrayList<>();
+//        for(Store store:storeRepository.findAllByOrderByTimestampDesc()){
+//            storeList.add(new StoreResponseDto(store));
+//        }
+//        return new ResponseDto<>(true,"성공", storeList);
+
 
     public ResponseDto<Object> updateComment(Long id, CommentRequestDto commentRequestDto) {
        Comment comment = commentRepository.findById(id).orElseThrow(

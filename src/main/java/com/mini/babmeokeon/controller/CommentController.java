@@ -1,6 +1,7 @@
 package com.mini.babmeokeon.controller;
 
 import com.mini.babmeokeon.dto.CommentRequestDto;
+import com.mini.babmeokeon.dto.CommentResponseDto;
 import com.mini.babmeokeon.dto.ResponseDto;
 import com.mini.babmeokeon.model.Comment;
 import com.mini.babmeokeon.security.UserDetailsImpl;
@@ -8,6 +9,8 @@ import com.mini.babmeokeon.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class CommentController {
@@ -28,7 +31,7 @@ public class CommentController {
     }
 
     @GetMapping("/api/comment/{storeId}")
-    public ResponseDto<Comment> readComment(@PathVariable Long storeId){
+    public ResponseDto<CommentResponseDto>  readComment(@PathVariable Long storeId){
         return commentService.readComment(storeId);
     }
 
