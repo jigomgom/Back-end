@@ -3,6 +3,7 @@ package com.mini.babmeokeon.security.filter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mini.babmeokeon.dto.ResponseDto;
 import com.mini.babmeokeon.security.jwt.HeaderTokenExtractor;
+import com.mini.babmeokeon.security.jwt.JwtCustomException;
 import com.mini.babmeokeon.security.jwt.JwtPreProcessingToken;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
@@ -100,10 +102,20 @@ public class JwtAuthFilter extends AbstractAuthenticationProcessingFilter {
          */
         SecurityContextHolder.clearContext();
 
-        super.unsuccessfulAuthentication(
-                request,
-                response,
-                failed
-        );
+        if (failed instanceof JwtCustomException) {
+            response.setCharacterEncoding("UTF-8");
+            response.setContentType("application/json");
+            ObjectMapper mapper = new ObjectMapper();
+            ResponseDto<Object> responseDto = new ResponseDto<>(false, failed.getMessage());
+            String result =mapper.writeValueAsString(responseDto);
+            response.getWriter().write(result);
+        }else{
+            super.unsuccessfulAuthentication(
+                    request,
+                    response,
+                    failed
+            );
+        }
+
     }
 }
