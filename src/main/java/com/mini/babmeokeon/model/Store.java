@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -27,8 +28,10 @@ public class Store extends Timestamped {
     @Column(nullable = false)
     private String menu;
 
+    @ElementCollection
+    @CollectionTable
     @Column(nullable = false)
-    private String img_url;
+    private List<String> img_url;
 
     @Column(nullable = false)
     private int stars;

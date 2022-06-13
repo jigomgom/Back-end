@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -17,7 +18,7 @@ public class StoreResponseDto {
     private String address;
     private String nickname;
     private String menu;
-    private String img_url;
+    private List<String> img_url;
     private String icon_url;
     private int stars;
     private String comment;
