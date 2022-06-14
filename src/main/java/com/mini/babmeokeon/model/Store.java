@@ -57,6 +57,8 @@ public class Store extends Timestamped {
         this.user = user;
     }
 
+
+
     public void update(StoreRequestDto requestDto){
         this.storeName = requestDto.getStoreName();
         this.address = requestDto.getAddress();

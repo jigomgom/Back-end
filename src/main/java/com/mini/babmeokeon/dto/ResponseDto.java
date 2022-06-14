@@ -1,9 +1,9 @@
 package com.mini.babmeokeon.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.*;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Slice;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 @NoArgsConstructor
@@ -15,6 +15,14 @@ public class ResponseDto<T>{
     private List<T> storeList;
     private boolean isLast; // 마지막 페이지 여부
 
+
+    private UserInfoDto userInfo;
+
+    public ResponseDto(boolean response, String message, UserInfoDto userInfo) {
+        this.response = response;
+        this.message = message;
+        this.userInfo = userInfo;
+    }
 
     public ResponseDto(boolean response) {
         this.response = response;
@@ -31,5 +39,4 @@ public class ResponseDto<T>{
         this.storeList = storeList.getContent();
         this.isLast = storeList.isLast();
     }
-
 }

@@ -3,8 +3,8 @@ package com.mini.babmeokeon.service;
 import com.mini.babmeokeon.dto.ResponseDto;
 import com.mini.babmeokeon.dto.StoreRequestDto;
 import com.mini.babmeokeon.dto.StoreResponseDto;
+import com.mini.babmeokeon.model.Likes;
 import com.mini.babmeokeon.model.Store;
-import com.mini.babmeokeon.model.User;
 import com.mini.babmeokeon.repository.StoreRepository;
 import com.mini.babmeokeon.security.UserDetailsImpl;
 import com.mini.babmeokeon.validator.StoreVaildator;
@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class StoreService {
