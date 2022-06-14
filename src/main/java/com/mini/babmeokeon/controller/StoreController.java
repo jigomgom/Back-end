@@ -31,7 +31,7 @@ public class StoreController {
 
     @GetMapping(value = {"/api/stores/{userid}", "/api/stores"})
     public ResponseDto<StoreResponseDto> getStore(@PathVariable(value = "userid", required = false) Long userId,
-                                                  @RequestParam(value = "size",required = false, defaultValue="0") int page,
+                                                  @RequestParam(value = "page",required = false, defaultValue="0") int page,
                                                   @RequestParam(value = "size",required = false, defaultValue="10") int size,
                                                   @RequestParam(value = "sortBy",required = false, defaultValue="id") String sortBy,
                                                   @RequestParam(value = "isAsc",required = false, defaultValue="false") boolean isAsc){
