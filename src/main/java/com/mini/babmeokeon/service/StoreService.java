@@ -49,7 +49,6 @@ public class StoreService {
         Sort sort = Sort.by(direction, sortBy);
         Pageable pageable = PageRequest.of(page, size, sort);
 
-
         if (sortBy.equals("id") && isAsc) {
             //기본적으로 ID 내림차순 정렬이지만 오름차순 정렬 쿼리가 들어올 떄
             storeListTemp =storeRepository.findSliceBy(pageable);
@@ -60,7 +59,7 @@ public class StoreService {
 
         Slice<StoreResponseDto> storeList = storeListTemp.map((Store store) -> {
             StoreResponseDto storeResponseDto = new StoreResponseDto(store);
-            if (userId != null && likesRepository.existByUserIdAndStoreId(userId,store.getId())) {
+            if (userId != null && likesRepository.existsByUserIdAndStoreId(userId,store.getId())) {
                 storeResponseDto.setLike(true);
             }
             return storeResponseDto;

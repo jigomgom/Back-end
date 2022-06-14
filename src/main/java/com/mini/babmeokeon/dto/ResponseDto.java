@@ -14,7 +14,7 @@ public class ResponseDto<T> {
     private boolean response;
     private String message;
     private List<T> storeList;
-    private boolean isLast; // 마지막 페이지 여부
+    private Boolean isLast; // 마지막 페이지 여부
 
     private UserInfoDto userInfo;
 

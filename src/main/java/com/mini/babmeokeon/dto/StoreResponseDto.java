@@ -26,7 +26,6 @@ public class StoreResponseDto {
     private int likeCount;
     private LocalDateTime timestamp;
 
-    private boolean isLike = false;
 
     public StoreResponseDto(Store store){
         this.id = store.getId();
