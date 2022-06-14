@@ -4,17 +4,17 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.domain.Slice;
 
 import java.util.List;
 @NoArgsConstructor
 @Setter@Getter
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ResponseDto<T>{
+public class ResponseDto<T> {
     private boolean response;
     private String message;
     private List<T> storeList;
     private boolean isLast; // 마지막 페이지 여부
-
 
     private UserInfoDto userInfo;
 

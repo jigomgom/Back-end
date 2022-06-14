@@ -1,20 +1,21 @@
 package com.mini.babmeokeon.service;
 
+
 import com.mini.babmeokeon.dto.ResponseDto;
 import com.mini.babmeokeon.dto.StoreRequestDto;
 import com.mini.babmeokeon.dto.StoreResponseDto;
-import com.mini.babmeokeon.model.Likes;
 import com.mini.babmeokeon.model.Store;
+import com.mini.babmeokeon.repository.LikesRepository;
 import com.mini.babmeokeon.repository.StoreRepository;
 import com.mini.babmeokeon.security.UserDetailsImpl;
 import com.mini.babmeokeon.validator.StoreVaildator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class StoreService {
