@@ -13,7 +13,7 @@ public class ResponseDto<T>{
     private boolean response;
     private String message;
     private List<T> storeList;
-    private boolean isLast;
+    private boolean isLast; // 마지막 페이지 여부
 
     public ResponseDto(boolean response) {
         this.response = response;

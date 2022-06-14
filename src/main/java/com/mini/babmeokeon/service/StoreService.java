@@ -47,9 +47,13 @@ public class StoreService {
         Sort.Direction direction = isAsc ? Sort.Direction.ASC : Sort.Direction.DESC;
         Sort sort = Sort.by(direction, sortBy);
         Pageable pageable = PageRequest.of(page, size, sort);
+
+
         if (sortBy.equals("id") && isAsc) {
+            //기본적으로 ID 내림차순 정렬이지만 오름차순 정렬 쿼리가 들어올 떄
             storeList =storeRepository.findSliceBy(pageable).map(StoreResponseDto::new);
         }else {
+            //기본적으로 ID 내림차순 정렬
             storeList =storeRepository.findSliceByOrderByIdDesc(pageable).map(StoreResponseDto::new);
         }
         return new ResponseDto<>(true,"성공", storeList);

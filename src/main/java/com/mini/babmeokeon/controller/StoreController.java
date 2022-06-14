@@ -36,7 +36,9 @@ public class StoreController {
                                                   @RequestParam(value = "isAsc",required = false, defaultValue="false") boolean isAsc,
                                                   @AuthenticationPrincipal UserDetailsImpl userDetails){
 
+        // PathVariable Default값 설정
         int page = requestPage == null ? 0 : requestPage;
+        // 토큰을 갖고 요청했으면 user 객체, 토큰 없으면 null
         User user = userDetails == null ? null : userDetails.getUser();
         return storeService.getStore(page,size,sortBy,isAsc,user);
     }
