@@ -24,6 +24,8 @@ public class StoreResponseDto {
     private int likeCount;
     private LocalDateTime timestamp;
 
+    private boolean isLike = false;
+
     public StoreResponseDto(Store store){
         this.id = store.getId();
         this.storeName = store.getStoreName();
@@ -36,5 +38,20 @@ public class StoreResponseDto {
         this.comment = store.getComment();
         this.likeCount = store.getLikeCount();
         this.timestamp = store.getTimestamp();
+    }
+
+    public StoreResponseDto(Store store, boolean isLike) {
+        this.id = store.getId();
+        this.storeName = store.getStoreName();
+        this.address = store.getAddress();
+        this.nickname = store.getUser().getNickname();
+        this.icon_url = store.getUser().getIcon_url();
+        this.menu = store.getMenu();
+        this.img_url = store.getImg_url();
+        this.stars = store.getStars();
+        this.comment = store.getComment();
+        this.likeCount = store.getLikeCount();
+        this.timestamp = store.getTimestamp();
+        this.isLike = isLike;
     }
 }

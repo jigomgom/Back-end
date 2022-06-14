@@ -29,8 +29,8 @@ public class StoreController {
     }
 
     @GetMapping("/api/stores")
-    public ResponseDto<StoreResponseDto> getStore(){
-        return storeService.getStore();
+    public ResponseDto<StoreResponseDto> getStore(@AuthenticationPrincipal UserDetailsImpl userDetails){
+        return storeService.getStore(userDetails);
     }
 
     @PutMapping("/api/store/{id}")

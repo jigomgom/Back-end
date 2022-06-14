@@ -4,8 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mini.babmeokeon.dto.ResponseDto;
 import com.mini.babmeokeon.security.jwt.HeaderTokenExtractor;
 import com.mini.babmeokeon.security.jwt.JwtPreProcessingToken;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContext;
@@ -19,11 +17,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+
 /**
+ *
  * Token 을 내려주는 Filter 가 아닌  client 에서 받아지는 Token 을 서버 사이드에서 검증하는 클레스 SecurityContextHolder 보관소에 해당
  * Token 값의 인증 상태를 보관 하고 필요할때 마다 인증 확인 후 권한 상태 확인 하는 기능
  */
 public class JwtAuthFilter extends AbstractAuthenticationProcessingFilter {
+
 
     private final HeaderTokenExtractor extractor;
 
@@ -36,6 +37,7 @@ public class JwtAuthFilter extends AbstractAuthenticationProcessingFilter {
         this.extractor = extractor;
     }
 
+
     @Override
     public Authentication attemptAuthentication(
             HttpServletRequest request,
@@ -46,14 +48,17 @@ public class JwtAuthFilter extends AbstractAuthenticationProcessingFilter {
         // JWT 값을 담아주는 변수 TokenPayload
         String tokenPayload = request.getHeader("Authorization");
         if (tokenPayload == null || tokenPayload.equals("null")) {
-            // response.sendRedirect("/api/login");
-            response.setCharacterEncoding("UTF-8");
-            response.setContentType("application/json");
-            ObjectMapper mapper = new ObjectMapper();
-            ResponseDto<Object> responseDto = new ResponseDto<>(false, "로그인이 필요합니다.");
-            String result =mapper.writeValueAsString(responseDto);
-            response.getWriter().write(result);
-            return null;
+            if(!request.getMethod().equals("GET") && request.getRequestURI().equals("/api/stores")){
+                // response.sendRedirect("/api/login");
+                response.setCharacterEncoding("UTF-8");
+                response.setContentType("application/json");
+                ObjectMapper mapper = new ObjectMapper();
+                ResponseDto<Object> responseDto = new ResponseDto<>(false, "로그인이 필요합니다.");
+                String result =mapper.writeValueAsString(responseDto);
+                response.getWriter().write(result);
+                return null;
+            }
+
         }
 
         JwtPreProcessingToken jwtToken = new JwtPreProcessingToken(

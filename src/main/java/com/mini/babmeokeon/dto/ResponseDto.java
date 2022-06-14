@@ -15,12 +15,12 @@ public class ResponseDto<T>{
     private String message;
     private List<T> storeList;
 
-    private int likeCount;
+    private UserInfoDto userInfo;
 
-    public ResponseDto(boolean response, String message, int likeCount) {
+    public ResponseDto(boolean response, String message, UserInfoDto userInfo) {
         this.response = response;
         this.message = message;
-        this.likeCount = likeCount;
+        this.userInfo = userInfo;
     }
 
     public ResponseDto(boolean response) {
