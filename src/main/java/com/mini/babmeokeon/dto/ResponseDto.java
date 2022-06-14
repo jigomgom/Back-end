@@ -15,6 +15,7 @@ public class ResponseDto<T>{
     private List<T> storeList;
     private boolean isLast; // 마지막 페이지 여부
 
+
     public ResponseDto(boolean response) {
         this.response = response;
     }

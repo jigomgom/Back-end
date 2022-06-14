@@ -29,18 +29,15 @@ public class StoreController {
         return storeService.register(storeRequestDto, userDetails);
     }
 
-    @GetMapping(value = {"/api/stores/{page}", "/api/stores"})
-    public ResponseDto<StoreResponseDto> getStore(@PathVariable(value = "page", required = false) Integer requestPage,
+    @GetMapping(value = {"/api/stores/{userid}", "/api/stores"})
+    public ResponseDto<StoreResponseDto> getStore(@PathVariable(value = "userid", required = false) Long userId,
+                                                  @RequestParam(value = "size",required = false, defaultValue="0") int page,
                                                   @RequestParam(value = "size",required = false, defaultValue="10") int size,
                                                   @RequestParam(value = "sortBy",required = false, defaultValue="id") String sortBy,
-                                                  @RequestParam(value = "isAsc",required = false, defaultValue="false") boolean isAsc,
-                                                  @AuthenticationPrincipal UserDetailsImpl userDetails){
+                                                  @RequestParam(value = "isAsc",required = false, defaultValue="false") boolean isAsc){
 
-        // PathVariable Default값 설정
-        int page = requestPage == null ? 0 : requestPage;
-        // 토큰을 갖고 요청했으면 user 객체, 토큰 없으면 null
-        User user = userDetails == null ? null : userDetails.getUser();
-        return storeService.getStore(page,size,sortBy,isAsc,user);
+
+        return storeService.getStore(page,size,sortBy,isAsc,userId);
     }
 
     @PutMapping("/api/store/{id}")

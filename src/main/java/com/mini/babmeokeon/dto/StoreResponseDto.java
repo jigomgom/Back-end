@@ -21,6 +21,7 @@ public class StoreResponseDto {
     private List<String> img_url;
     private String icon_url;
     private int stars;
+    private boolean isLike = false;
     private String comment;
     private int likeCount;
     private LocalDateTime timestamp;

@@ -21,10 +21,12 @@ import java.util.stream.Collectors;
 public class StoreService {
 
     private final StoreRepository storeRepository;
+    private final LikesRepository likesRepository;
 
     @Autowired
-    public StoreService(StoreRepository storeRepository){
+    public StoreService(StoreRepository storeRepository, LikesRepository likesRepository){
         this.storeRepository = storeRepository;
+        this.likesRepository = likesRepository;
     }
 
     @Transactional
@@ -41,9 +43,8 @@ public class StoreService {
 
     }
 
-    public ResponseDto<StoreResponseDto> getStore(int page, int size, String sortBy, boolean isAsc, User user) {
-        System.out.println(user);
-        Slice<StoreResponseDto> storeList;
+    public ResponseDto<StoreResponseDto> getStore(int page, int size, String sortBy, boolean isAsc, Long userId) {
+        Slice<Store> storeListTemp;
         Sort.Direction direction = isAsc ? Sort.Direction.ASC : Sort.Direction.DESC;
         Sort sort = Sort.by(direction, sortBy);
         Pageable pageable = PageRequest.of(page, size, sort);
@@ -51,11 +52,19 @@ public class StoreService {
 
         if (sortBy.equals("id") && isAsc) {
             //기본적으로 ID 내림차순 정렬이지만 오름차순 정렬 쿼리가 들어올 떄
-            storeList =storeRepository.findSliceBy(pageable).map(StoreResponseDto::new);
+            storeListTemp =storeRepository.findSliceBy(pageable);
         }else {
             //기본적으로 ID 내림차순 정렬
-            storeList =storeRepository.findSliceByOrderByIdDesc(pageable).map(StoreResponseDto::new);
+            storeListTemp =storeRepository.findSliceByOrderByIdDesc(pageable);
         }
+
+        Slice<StoreResponseDto> storeList = storeListTemp.map((Store store) -> {
+            StoreResponseDto storeResponseDto = new StoreResponseDto(store);
+            if (userId != null && likesRepository.existByUserIdAndStoreId(userId,store.getId())) {
+                storeResponseDto.setLike(true);
+            }
+            return storeResponseDto;
+        });
         return new ResponseDto<>(true,"성공", storeList);
     }
 
