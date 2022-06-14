@@ -164,7 +164,8 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
     //     return super.authenticationManagerBean();
     // }
     // CORS 설정
-    @Bean public CorsConfigurationSource corsConfigurationSource() {
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.addAllowedOrigin("http://localhost:3000");
         configuration.addAllowedOrigin("http://jeju.project.s3-website.ap-northeast-2.amazonaws.com/");

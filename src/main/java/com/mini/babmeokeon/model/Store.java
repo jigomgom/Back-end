@@ -47,6 +47,7 @@ public class Store extends Timestamped {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+
     public Store(StoreRequestDto requestDto, User user){
         this.storeName = requestDto.getStoreName();
         this.address = requestDto.getAddress();

@@ -5,6 +5,8 @@ package com.mini.babmeokeon.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -18,11 +20,11 @@ public class Likes {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "store_id")
+    @JoinColumn(name = "store_id",nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Store store;
 
     @ManyToOne
-//    @JoinColumn(name= "USER_ID")
     private User user;
 
     public Likes(Store store, User user) {

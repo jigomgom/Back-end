@@ -33,16 +33,15 @@ public class StoreService {
     public ResponseDto<Object> register(StoreRequestDto storeRequestDto, UserDetailsImpl userDetails) {
         String message = StoreVaildator.validateStoreInput(storeRequestDto);
         boolean response = false;
-        if(message.equals("성공")){
+        if (message.equals("성공")) {
             response = true;
             Store store = new Store(storeRequestDto, userDetails.getUser());
             storeRepository.save(store);
         }
         return new ResponseDto<>(response, message);
-
-
     }
 
+    @Transactional(readOnly = true)
     public ResponseDto<StoreResponseDto> getStore(int page, int size, String sortBy, boolean isAsc, Long userId) {
         Slice<Store> storeListTemp;
         Sort.Direction direction = isAsc ? Sort.Direction.ASC : Sort.Direction.DESC;

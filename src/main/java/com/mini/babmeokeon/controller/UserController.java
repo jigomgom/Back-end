@@ -15,7 +15,6 @@ public class UserController {
 
     @PostMapping("/api/signup")
     public ResponseDto<Object> signUp(@RequestBody SignUpRequestDto signUpRequestDto) {
-        System.out.println("signup");
         return userService.signUp(signUpRequestDto);
     }
 
