@@ -12,7 +12,7 @@ import com.mini.babmeokeon.validator.StoreVaildator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,20 +43,20 @@ public class StoreService {
 
     @Transactional(readOnly = true)
     public ResponseDto<StoreResponseDto> getStore(int page, int size, String sortBy, boolean isAsc, Long userId) {
-        Slice<Store> storeListTemp;
+        Page<Store> storeListTemp;
         Sort.Direction direction = isAsc ? Sort.Direction.ASC : Sort.Direction.DESC;
         Sort sort = Sort.by(direction, sortBy);
         Pageable pageable = PageRequest.of(page, size, sort);
 
         if (sortBy.equals("id") && isAsc) {
             //기본적으로 ID 내림차순 정렬이지만 오름차순 정렬 쿼리가 들어올 떄
-            storeListTemp =storeRepository.findSliceBy(pageable);
+            storeListTemp =storeRepository.findPageBy(pageable);
         }else {
             //기본적으로 ID 내림차순 정렬
-            storeListTemp =storeRepository.findSliceByOrderByIdDesc(pageable);
+            storeListTemp =storeRepository.findPageByOrderByIdDesc(pageable);
         }
 
-        Slice<StoreResponseDto> storeList = storeListTemp.map((Store store) -> {
+        Page<StoreResponseDto> storeList = storeListTemp.map((Store store) -> {
             StoreResponseDto storeResponseDto = new StoreResponseDto(store);
             if (userId != null && likesRepository.existsByUserIdAndStoreId(userId,store.getId())) {
                 storeResponseDto.setLike(true);

@@ -16,6 +16,7 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
     Page<Store> findPageBy(Pageable pageable);
 
     Slice<Store> findSliceByOrderByIdDesc(Pageable pageable);
+    Page<Store> findPageByOrderByIdDesc(Pageable pageable);
 
     Slice<Store> findSliceBy(Pageable pageable);
 }
