@@ -24,10 +24,10 @@
    -> JWT Filter에서 url, method 로 메인페이지 GET요청을 판별하여 스킵 했지만 비로그인시 JWT토큰 검증 오류  
    -> 로그인시 UserId를 PathValue로 받아 isLike 판별(해결완료)  
 2. 좋아요 눌린 Feed 삭제시 테이블 연관관계로 인해 오류발생(삭제불가)  
-   -> Likes Entity 안의 Store테이블에 어노테이션 @OnDelete(action = OnDeleteAction.CASCADE) 추가로 함께 삭제되게 구현(해결완료)
-   -> 해결 완료 인줄 알았지만 H2 에서는 됐지만 RDS에서는 오류 발생
-   -> MySQLDialect(기본 스토리지 엔진)는 @OnDelete 어노테이션을 지원하지 않음
-   -> FK로 좋아요 먼저 삭제 후 Store 삭제함(해결완료)
+   -> Likes Entity 안의 Store테이블에 어노테이션 @OnDelete(action = OnDeleteAction.CASCADE) 추가로 함께 삭제되게 구현(해결완료)  
+   -> 해결 완료 인줄 알았지만 H2 에서는 됐지만 RDS에서는 오류 발생  
+   -> MySQLDialect(기본 스토리지 엔진)는 @OnDelete 어노테이션을 지원하지 않음  
+   -> FK로 좋아요 먼저 삭제 후 Store 삭제함(해결완료)  
 ### 📜 기술 스택
 
 <p align="center">
