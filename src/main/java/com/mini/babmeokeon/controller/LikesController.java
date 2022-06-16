@@ -19,11 +19,13 @@ public class LikesController {
         this.likesService = likesService;
     }
 
+    //좋아요 추가
     @PostMapping("/api/like/{storeId}")
     public LikeCountDto Likes(@PathVariable Long storeId, @AuthenticationPrincipal UserDetailsImpl userDetails){
         return likesService.likes(storeId,userDetails);
     }
 
+    //좋아요 삭제
     @DeleteMapping("/api/unlike/{storeId}")
     private LikeCountDto unLikes(@PathVariable Long storeId, @AuthenticationPrincipal UserDetailsImpl userDetails){
         return likesService.unLikes(storeId,userDetails);

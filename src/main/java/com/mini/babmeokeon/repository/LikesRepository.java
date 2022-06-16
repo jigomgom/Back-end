@@ -15,4 +15,6 @@ public interface LikesRepository extends JpaRepository<Likes,Long> {
     Optional<Likes> findBystoreAndUserId(Store store, Long id);
 
     boolean existsByUserIdAndStoreId(Long userId, Long id);
+
+    void deleteByStore(Store store);
 }

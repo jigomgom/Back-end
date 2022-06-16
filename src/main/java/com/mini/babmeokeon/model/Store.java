@@ -2,7 +2,6 @@ package com.mini.babmeokeon.model;
 
 
 import com.mini.babmeokeon.dto.StoreRequestDto;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

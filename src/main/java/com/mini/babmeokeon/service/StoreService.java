@@ -81,7 +81,7 @@ public class StoreService {
         return new ResponseDto<>(response, message);
     }
 
-
+    @Transactional
     public ResponseDto<Object> deleteStore(Long id, UserDetailsImpl userDetails) {
         String message;
         boolean response = false;
@@ -90,6 +90,7 @@ public class StoreService {
             message = "본인의 게시글이 아닙니다.";
         }
         else {
+            likesRepository.deleteByStore(store);
             response = true;
             message = "성공";
             storeRepository.deleteById(id);

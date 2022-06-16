@@ -21,7 +21,6 @@ public class Likes {
 
     @ManyToOne
     @JoinColumn(name = "store_id",nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private Store store;
 
     @ManyToOne

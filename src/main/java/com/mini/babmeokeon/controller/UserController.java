@@ -13,16 +13,19 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     private final UserService userService;
 
+    //회원가입
     @PostMapping("/api/signup")
     public ResponseDto<Object> signUp(@RequestBody SignUpRequestDto signUpRequestDto) {
         return userService.signUp(signUpRequestDto);
     }
 
+    //아이디 중복 체크
     @GetMapping("/api/checkId/{username}")
     public ResponseDto<Object> checkId(@PathVariable String username) {
         return userService.checkId(username);
     }
 
+    //닉네임 중복 체크
     @GetMapping("/api/checkNickname/{nickname}")
     public ResponseDto<Object> checkNickname(@PathVariable String nickname) {
         return userService.checkNickname(nickname);

@@ -16,7 +16,7 @@ public class ResponseDto<T> {
     private String message;
     private List<T> storeList;
     private Boolean isLast; // 마지막 페이지 여부
-    private Long total; // 마지막 페이지 여부
+    private Long total; // 총 게시글 수
 
     private UserInfoDto userInfo;
 

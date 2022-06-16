@@ -21,7 +21,7 @@ public class StoreResponseDto {
     private List<String> img_url;
     private String icon_url;
     private int stars;
-    private boolean isLike = false;
+    private boolean isLike = false; // 로그인한 유저가 좋아요 눌렀는지 판별
     private String comment;
     private int likeCount;
     private LocalDateTime timestamp;
